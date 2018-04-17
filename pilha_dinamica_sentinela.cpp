@@ -61,7 +61,7 @@ int topo(pilha* p, item* top){
 	return 0;
 }
 
-int conta_parenteses(char* expressao, int tam){ //exercício 1
+int exp_regular(char* expressao, int tam){ //exercício 1
 	pilha A;
 	item X;
 	inicializa(&A);
