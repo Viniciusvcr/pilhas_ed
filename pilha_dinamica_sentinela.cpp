@@ -1,6 +1,9 @@
 #include <iostream>
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
+
+using namespace std;
 
 typedef struct tipo_item{
 	int chave;
@@ -105,7 +108,7 @@ void pause_screen(){
 int main(){
 	pilha A;
 	int opt;
-	celula insere;
+	item insere;
 	item retornos;
 	char expressao[100];
 
@@ -122,7 +125,7 @@ int main(){
 		cout << "[8] Esvaziar pilha" << endl;
 		cin >> opt;
 		switch(opt){
-			case 1;
+			case 1:
 				inicializa(&A);
 				cout << "PILHA INICIALIZADA" << endl;
 				pause_screen();
@@ -171,6 +174,7 @@ int main(){
 				if(exp_regular(expressao, strlen(expressao)))
 					cout << "EXPRESSAO CORRETA!" << endl;
 				else cout << "EXPRESSAO INCORRETA" << endl;
+				pause_screen();
 			break;
 
 			case 8:
