@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <string>
 
 using namespace std;
 
@@ -32,6 +33,16 @@ void mostra_pilha(pilha* p){
 
 	while(aux != NULL){
 		cout << aux->item.chave << " ";
+		aux = aux->prox;
+	}
+	cout << endl;
+}
+
+void mostra_bin(pilha* p){ //Função usada para mostrar uma pilha sem espaços entre os elementos
+	celula *aux = p->topo->prox;
+
+	while(aux != NULL){
+		cout << aux->item.chave;
 		aux = aux->prox;
 	}
 	cout << endl;
@@ -81,10 +92,12 @@ int exp_regular(char* expressao, int tam){ //exercício 1
 }
 
 int esvazia_pilha(pilha* p){ //exercício 4b
-	celula *aux = p->topo->prox;
-	celula *del = aux;
+	celula *aux;
+	celula *del;
 
 	if(!vazia(p)){
+		aux = p->topo->prox;
+		del = aux;
 		while(aux != NULL){
 			aux = aux->prox;
 			free(del);
@@ -94,6 +107,16 @@ int esvazia_pilha(pilha* p){ //exercício 4b
 		return 1;
 	}
 	return 0;
+}
+
+void dec_to_bin(int decimal, pilha* binario){ //exercício 3
+	item resto;
+
+	while(decimal != 0){
+		resto.chave = decimal%2;
+		empilha(binario, resto);
+		decimal /= 2;
+	}
 }
 
 void clear_screen(){
@@ -106,12 +129,13 @@ void pause_screen(){
 }
 
 int main(){
-	pilha A;
-	int opt;
+	pilha A, binario;
+	int opt, decimal;
 	item insere;
 	item retornos;
 	char expressao[100];
 
+	inicializa(&binario);
 	do{
 		fflush(stdin);
 		clear_screen();
@@ -123,6 +147,7 @@ int main(){
 		cout << "[6] Mostrar item do topo" << endl;
 		cout << "[7] Expressao regular" << endl;
 		cout << "[8] Esvaziar pilha" << endl;
+		cout << "[9] Decimal para Binario" << endl;
 		cin >> opt;
 		switch(opt){
 			case 1:
@@ -181,6 +206,17 @@ int main(){
 				if(esvazia_pilha(&A))
 					cout << "PILHA ESVAZIADA COM SUCESSO!" << endl;
 				else cout << "ERRO NA OPERACAO" << endl;
+				pause_screen();
+			break;
+
+			case 9:
+				esvazia_pilha(&binario);
+				clear_screen();
+				cout << "Digite o numero decimal: ";
+				cin >> decimal;
+				dec_to_bin(decimal, &binario);
+				cout << decimal << " em binario: ";
+				mostra_bin(&binario);
 				pause_screen();
 			break;
 		}
