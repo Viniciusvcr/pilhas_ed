@@ -125,11 +125,11 @@ int copia_pilha(pilha* A, pilha* B){ //exercício 2
 	int flag = 0;
 
 	inicializa(&C);
-	while(!desempilha(B, &topo)){
+	while(desempilha(B, &topo)){
 		empilha(&C, topo);
 		flag = 1; //Caso B não esteja vazia, esta Flag marcará o retorno como 1, indicando a realização da cópia
 	}
-	while(!desempilha(&C, &topo)){
+	while(desempilha(&C, &topo)){
 		empilha(A, topo);
 		empilha(B, topo);
 	}
