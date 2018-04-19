@@ -67,6 +67,21 @@ int esvazia(pilha* p){ //exercício 4a
 	return 0;
 }
 
+int copia_pilha(pilha* A, pilha* B){
+	pilha C;
+	item insere;
+
+	inicializa(&C);
+	if(B->topo + A->topo <= TAM){
+		for(int i=0; i<B->topo; i++){
+			insere = B->dados[i];
+			empilha(A, insere);
+		}
+		return 1;
+	}
+	return 0;
+}
+
 void clear_screen(){
 	system("cls");
 }
@@ -77,9 +92,10 @@ void pause_screen(){
 }
 
 int main(){
-	pilha A;
+	pilha A, B;
 	item insere, retorno;
 	int opt;
+	char lista_escolhida;
 
 	do{
 		fflush(stdin);
@@ -96,26 +112,33 @@ int main(){
 		switch(opt){
 			case 1:
 				inicializa(&A);
-				cout << "PILHA INICIALIZADA" << endl;
+				inicializa(&B);
+				cout << "PILHAS INICIALIZADAS" << endl;
 				pause_screen();
 			break;
 
 			case 2:
-				if(cheia(&A)) cout << "PILHA CHEIA" << endl;
-				else cout << "PILHA NAO ESTA CHEIA" << endl;
+				if(cheia(&A)) cout << "PILHA 'A' CHEIA" << endl;
+				else cout << "PILHA 'A' NAO ESTA CHEIA" << endl;
+				if(cheia(&B)) cout << "PILHA 'B' CHEIA" << endl;
+				else cout << "PILHA 'B' NAO ESTA CHEIA" << endl;
 				pause_screen();
 			break;
 
 			case 3:
-				if(vazia(&A)) cout << "PILHA VAZIA" << endl;
-				else cout << "PILHA NAO ESTA VAZIA" << endl;
+				if(vazia(&A)) cout << "PILHA 'A' VAZIA" << endl;
+				else cout << "PILHA 'A' NAO ESTA VAZIA" << endl;
+				if(vazia(&B)) cout << "PILHA 'B' VAZIA" << endl;
+				else cout << "PILHA 'B' NAO ESTA VAZIA" << endl;
 				pause_screen();
 			break;
 
 			case 4:
 				clear_screen();
-				cout << "PILHA COMPLETA: ";
+				cout << "PILHA 'A' COMPLETA: ";
 				mostra_pilha(&A);
+				cout << "PILHA 'B' COMPLETA: ";
+				mostra_pilha(&B);
 				pause_screen();
 			break;
 
@@ -123,30 +146,68 @@ int main(){
 				clear_screen();
 				cout << "Digite o elemento que deseja inserir: ";
 				cin >> insere.chave;
-				if(empilha(&A, insere))
-					cout << "ELEMENTO INSERIDO COM SUCESSO" << endl;
-				else cout << "ERRO NA OPERACAO" << endl;
+				cout << "Em qual lista inserir? ";
+				cin >> lista_escolhida;
+				if(lista_escolhida == 'A' || lista_escolhida == 'a'){
+					if(empilha(&A, insere))
+						cout << "ELEMENTO INSERIDO COM SUCESSO" << endl;
+					else cout << "ERRO NA OPERACAO" << endl;
+				}
+				else if(lista_escolhida == 'B' || lista_escolhida == 'b'){
+					if(empilha(&B, insere))
+						cout << "ELEMENTO INSERIDO COM SUCESSO" << endl;
+					else cout << "ERRO NA OPERACAO" << endl;
+				}
 				pause_screen();
 			break;
 
 			case 6:
-				if(desempilha(&A, &retorno))
-					cout << retorno.chave << " RETIRADO COM SUCESSO" << endl;
-				else cout << "ERRO NA OPERACAO" << endl;
+				cout << "De qual pilha tirar? ";
+				cin >> lista_escolhida;
+				if(lista_escolhida == 'A' || lista_escolhida == 'a'){
+					if(desempilha(&A, &retorno))
+						cout << retorno.chave << " RETIRADO COM SUCESSO" << endl;
+					else cout << "ERRO NA OPERACAO" << endl;
+				}
+				else if(lista_escolhida == 'B' || lista_escolhida == 'b'){
+					if(desempilha(&B, &retorno))
+						cout << retorno.chave << " RETIRADO COM SUCESSO" << endl;
+					else cout << "ERRO NA OPERACAO" << endl;
+				}
 				pause_screen();
 			break;
 				
 			case 7:
 				if(topo(&A, &retorno))
-					cout << "ITEM DO TOPO: " << retorno.chave << endl;
+					cout << "ITEM DO TOPO DE 'A': " << retorno.chave << endl;
+				else cout << "ERRO NA OPERACAO" << endl;
+				if(topo(&B, &retorno))
+					cout << "ITEM DO TOPO DE 'B': " << retorno.chave << endl;
 				else cout << "ERRO NA OPERACAO" << endl;
 				pause_screen();
 			break;
 
 			case 8:
-				if(esvazia(&A))
-					cout << "PILHA ESVAZIADA" << endl;
-				else cout << "PILHA JA VAZIA" << endl;
+				cout << "Qual lista esvaziar? ";
+				cin >> lista_escolhida;
+				if(lista_escolhida == 'A' || lista_escolhida == 'a'){
+					if(esvazia(&A))
+						cout << "PILHA ESVAZIADA" << endl;
+					else cout << "PILHA JA VAZIA" << endl;
+				}
+				else if(lista_escolhida == 'B' || lista_escolhida == 'b'){
+					if(esvazia(&B))
+						cout << "PILHA ESVAZIADA" << endl;
+					else cout << "PILHA JA VAZIA" << endl;
+				}
+				
+				pause_screen();
+			break;
+
+			case 9:
+				if(copia_pilha(&A, &B))
+					cout << "COPIA EFETUADA" << endl;
+				else cout << "ERRO NA OPERACAO" << endl;
 				pause_screen();
 			break;
 		}
