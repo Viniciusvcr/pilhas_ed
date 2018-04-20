@@ -1,6 +1,7 @@
 #include <iostream>
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #define TAM 100
 
 using namespace std;
@@ -92,6 +93,7 @@ int main(){
 		cout << "[6] Tira elemento" << endl;
 		cout << "[7] Mostrar item do topo" << endl;
 		cout << "[8] Esvaziar pilha" << endl; 
+		cout << "[9] "
 		cin >> opt;
 		switch(opt){
 			case 1:
