@@ -135,6 +135,21 @@ int copia_pilha(pilha* A, pilha* B){ //exercício 2
 	return flag;
 }
 
+int palindromo(char* string, int tam){ //exercício 3 - Lista revisão
+	item insere;
+	pilha aux;
+
+	tam--;
+	inicializa(&aux);
+	insere.chave = 0;	
+	for(int i=0; i<tam; i++){
+		empilha(&aux, insere);
+		if(string[tam-i] == string[i])
+			desempilha(&aux, &insere);
+	}
+	return vazia(&aux);
+}
+
 void clear_screen(){
 	system("cls");
 }
@@ -164,6 +179,7 @@ int main(){
 		cout << "[08] Esvaziar pilha" << endl;
 		cout << "[09] Decimal para Binario" << endl;
 		cout << "[10] Copia B para A" << endl;
+		cout << "[11] Palindromo" << endl;
 		cin >> opt;
 		switch(opt){
 			case 1:
@@ -273,6 +289,15 @@ int main(){
 				if(copia_pilha(&A, &B))
 					cout << "COPIA EFETUADA" << endl;
 				else cout << "PILHA B VAZIA!" << endl;
+				pause_screen();
+			break;
+
+			case 11:
+				cout << "Digite uma palavra: ";
+				cin >> expressao;
+				if(palindromo(expressao, strlen(expressao)))
+					cout << "Palavra palindrome" << endl;
+				else cout << "Palavra nao palindrome" << endl;
 				pause_screen();
 			break;
 		}
